@@ -56,4 +56,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="145dp"
         android:text="TextView" />
+
+    <TextView
+        android:id="@+id/resettedZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="84dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/halfFlipCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="TextView" />
 </RelativeLayout>

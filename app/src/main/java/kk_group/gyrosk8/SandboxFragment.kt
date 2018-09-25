@@ -21,6 +21,11 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private var rotationSensor: Sensor? = null
 
+    private var zValue: Float? = null
+    private var zShit: Float? = null
+    private var halfFlipNumber: Int = 0
+
+    private var paska: Float? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -36,9 +41,15 @@ class SandboxFragment : Fragment(), SensorEventListener {
         }
 
         val btn = view.findViewById(R.id.resetButton) as Button
-        val txt = view.findViewById(R.id.captureText) as TextView
+        val captureTxt = view.findViewById(R.id.captureText) as TextView
+
         btn.setOnClickListener {
-            txt.text = textView5.text
+            zShit = zValue  // hommataan erotus
+
+            captureTxt.text = zValue.toString()
+            
+            halfFlipNumber = 0
+            halfFlipCounter.text = halfFlipNumber.toString()
         }
 
         return view
@@ -50,9 +61,27 @@ class SandboxFragment : Fragment(), SensorEventListener {
             val y = event.values[1]
             val z = event.values[2]
 
+            zValue = event.values[2] // record z value to "global" variable
+
             textView3.text = String.format("x %.3f", x)
             textView4.text = String.format("y %.3f", y)
-            textView5.text = String.format("z %.3f", z)
+
+            if (zShit == null) {
+                textView5.text = String.format("z %.3f", z)
+            } else {
+                textView5.text = String.format("z %.3f", z)
+
+                paska = z - zShit!!
+                resettedZ.text = String.format("new z %.3f", paska)
+
+                if (paska!! > 1 || paska!! < -1) {
+
+                    halfFlipNumber++
+                    halfFlipCounter.text = halfFlipNumber.toString()
+
+                    zShit = zValue
+                }
+            }
 
 
         } else {
