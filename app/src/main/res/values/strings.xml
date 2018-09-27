@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GyroSK8</string>
+    <string name="disclaimerText">I understand and agree that playing Gyro-Sk8 application is entirely at my own risk. I understand and agree that the author of Gyro-Sk8 shall in no event be liable for any direct, indirect, incidental, consequential, or exemplary damages or injuries</string>
+    <string name="disclaimer">DISCLAIMER:</string>
+    <string name="disagree">Disagree</string>
+    <string name="agree">Agree</string>
 </resources>
