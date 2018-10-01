@@ -125,8 +125,8 @@ class SandboxFragment : Fragment(), SensorEventListener {
                     // Calculating rotation from number of shuvits
                     val rotationCalculation = shuvitNumber * 180
 
-                    halfFlipCounter.text = String.format("Damn you rotated $rotationCalculation° total")
-
+                    halfFlipCounter.text = String.format("Rotations $rotationCalculation° total")
+                    String.format("Rotations $rotationCalculation° total")
                     zStartValueFromButton = zSensorValue
                 }
             }
@@ -143,7 +143,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
             if (z > -1 && z < 1 && !throwBool && (pitchValue > -20 && pitchValue < 20)) {
                 throwBool = true
                 throwCounter++
-                ollieCounter.text = "Ollies: " + throwCounter
+                ollieCounter.text = String.format("Ollies: $throwCounter")
             } else if (z > 8.5) {
                 throwBool = false
             }
