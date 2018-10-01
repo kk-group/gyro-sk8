@@ -24,8 +24,12 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var zValue: Float? = null
     private var zShit: Float? = null
     private var halfFlipNumber: Int = 0
-
     private var paska: Float? = null
+
+    private var xSensorValue: Float? = null
+    private var xStartValueFromButton: Float? = null
+    private var xRunningFloat: Float? = null
+    private var kickFlipNumber: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -41,7 +45,9 @@ class SandboxFragment : Fragment(), SensorEventListener {
         }
 
         val btn = view.findViewById(R.id.resetButton) as Button
+        val btn2 = view.findViewById(R.id.resetButton2) as Button
         val captureTxt = view.findViewById(R.id.captureText) as TextView
+        val captureTxt2 = view.findViewById(R.id.captureText2) as TextView
 
         btn.setOnClickListener {
             zShit = zValue  // hommataan erotus
@@ -50,6 +56,15 @@ class SandboxFragment : Fragment(), SensorEventListener {
             
             halfFlipNumber = 0
             halfFlipCounter.text = halfFlipNumber.toString()
+        }
+
+        btn2.setOnClickListener {
+            xStartValueFromButton = xSensorValue
+
+            captureTxt2.text = xSensorValue.toString()
+
+            kickFlipNumber = 0
+            kickFlipCounter.text = kickFlipNumber.toString()
         }
 
         return view
@@ -61,15 +76,31 @@ class SandboxFragment : Fragment(), SensorEventListener {
             val y = event.values[1]
             val z = event.values[2]
 
-            zValue = event.values[2] // record z value to "global" variable
+            tv_yValue.text = String.format("y %.3f", y)
 
-            textView3.text = String.format("x %.3f", x)
-            textView4.text = String.format("y %.3f", y)
+            zValue = event.values[2] // record z value to "global" variable
+            xSensorValue = event.values[0] // recording x value to a variable
+
+            if (xStartValueFromButton == null) {
+                tv_xValue.text = String.format("x %.3f", x)
+            } else {
+                tv_xValue.text = String.format("x %.3f", x)
+
+                xRunningFloat = x - xStartValueFromButton!!
+                yValueAfterReset.text = String.format("Value X %.3f", xRunningFloat)
+
+                if (xRunningFloat!! > 0.8 || xRunningFloat!! < -0.8) {
+
+                    kickFlipNumber++
+                    kickFlipCounter.text = String.format("Damn bro! You've flipped $kickFlipNumber times")
+                    xStartValueFromButton = xSensorValue
+                }
+            }
 
             if (zShit == null) {
-                textView5.text = String.format("z %.3f", z)
+                tv_zValue.text = String.format("z %.3f", z)
             } else {
-                textView5.text = String.format("z %.3f", z)
+                tv_zValue.text = String.format("z %.3f", z)
 
                 paska = z - zShit!!
                 resettedZ.text = String.format("new z %.3f", paska)
