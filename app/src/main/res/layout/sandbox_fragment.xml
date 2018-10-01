@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="142dp"
         android:layout_marginStart="143dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -94,19 +94,19 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_zValue" />
 
     <TextView
-        android:id="@+id/resettedZ"
+        android:id="@+id/zValueAfterReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="49dp"
         android:layout_marginEnd="73dp"
         android:layout_marginStart="90dp"
-        android:text="TextView"
+        android:text="zValueAfterReset"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/yValueAfterReset"
+        app:layout_constraintEnd_toStartOf="@+id/xValueAfterReset"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/yValueAfterReset"
+        android:id="@+id/xValueAfterReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="49dp"

@@ -34,7 +34,6 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var kickFlipNumber: Int = 0
 
     private var pitchValue: Float = 0f
-
     private var throwBool: Boolean = false
     private var throwCounter: Int = 0
 
@@ -45,9 +44,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
         this.sensorManager = layoutInflater.context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
-
         pitchSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)
-
         acceleroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
@@ -56,18 +53,19 @@ class SandboxFragment : Fragment(), SensorEventListener {
             Log.d("DBG", "Sensor not found")
         }
 
+        /**
+         * Reset button
+         */
         val btn = view.findViewById(R.id.resetButton) as Button
 
         btn.setOnClickListener {
             zStartValueFromButton = zSensorValue  // hommataan erotus
-
-            
-            shuvitNumber = 0
-            halfFlipCounter.text = shuvitNumber.toString()
-
             xStartValueFromButton = xSensorValue
 
+            shuvitNumber = 0
             kickFlipNumber = 0
+
+            halfFlipCounter.text = shuvitNumber.toString()
             kickFlipCounter.text = kickFlipNumber.toString()
         }
 
@@ -76,6 +74,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor == rotationSensor && event != null) {
+
+            /**
+             * Initializing sensor data X Y Z
+             */
             val x = event.values[0]
             val y = event.values[1]
             val z = event.values[2]
@@ -85,13 +87,17 @@ class SandboxFragment : Fragment(), SensorEventListener {
             zSensorValue = event.values[2] // record z value to "global" variable
             xSensorValue = event.values[0] // recording x value to a variable
 
+            /**
+             * Kickflip functionality
+             */
+
             if (xStartValueFromButton == null) {
                 tv_xValue.text = String.format("x %.3f", x)
             } else {
                 tv_xValue.text = String.format("x %.3f", x)
 
                 xRunningFloat = x - xStartValueFromButton!!
-                yValueAfterReset.text = String.format("Value X %.3f", xRunningFloat)
+                xValueAfterReset.text = String.format("Value X %.3f", xRunningFloat)
 
                 if (xRunningFloat!! > 0.8 || xRunningFloat!! < -0.8) {
 
@@ -101,18 +107,25 @@ class SandboxFragment : Fragment(), SensorEventListener {
                 }
             }
 
+            /**
+             * Shuvit functionality
+             */
+
             if (zStartValueFromButton == null) {
                 tv_zValue.text = String.format("z %.3f", z)
             } else {
                 tv_zValue.text = String.format("z %.3f", z)
 
                 zRunningFloat = z - zStartValueFromButton!!
-                resettedZ.text = String.format("new z %.3f", zRunningFloat)
+                zValueAfterReset.text = String.format("new z %.3f", zRunningFloat)
 
                 if (zRunningFloat!! > 1 || zRunningFloat!! < -1) {
-
                     shuvitNumber++
-                    halfFlipCounter.text = shuvitNumber.toString()
+
+                    // Calculating rotation from number of shuvits
+                    val rotationCalculation = shuvitNumber * 180
+
+                    halfFlipCounter.text = String.format("Damn you rotated $rotationCalculation° total")
 
                     zStartValueFromButton = zSensorValue
                 }
