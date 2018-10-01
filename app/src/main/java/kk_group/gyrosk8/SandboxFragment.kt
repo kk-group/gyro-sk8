@@ -12,24 +12,31 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.util.Log
 import android.widget.Button
-import android.widget.TextView
 import kotlinx.android.synthetic.main.sandbox_fragment.*
 
 
 class SandboxFragment : Fragment(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
-    private var rotationSensor: Sensor? = null
 
-    private var zValue: Float? = null
-    private var zShit: Float? = null
-    private var halfFlipNumber: Int = 0
-    private var paska: Float? = null
+    private var rotationSensor: Sensor? = null
+    private var pitchSensor: Sensor? = null
+    private var acceleroSensor: Sensor? = null
+
+    private var zSensorValue: Float? = null
+    private var zStartValueFromButton: Float? = null
+    private var shuvitNumber: Int = 0
+    private var zRunningFloat: Float? = null
 
     private var xSensorValue: Float? = null
     private var xStartValueFromButton: Float? = null
     private var xRunningFloat: Float? = null
     private var kickFlipNumber: Int = 0
+
+    private var pitchValue: Float = 0f
+
+    private var throwBool: Boolean = false
+    private var throwCounter: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -38,6 +45,11 @@ class SandboxFragment : Fragment(), SensorEventListener {
         this.sensorManager = layoutInflater.context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
+
+        pitchSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)
+
+        acceleroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
         if (sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
             Log.d("DBG", "Sensor found")
         } else {
@@ -45,23 +57,15 @@ class SandboxFragment : Fragment(), SensorEventListener {
         }
 
         val btn = view.findViewById(R.id.resetButton) as Button
-        val btn2 = view.findViewById(R.id.resetButton2) as Button
-        val captureTxt = view.findViewById(R.id.captureText) as TextView
-        val captureTxt2 = view.findViewById(R.id.captureText2) as TextView
 
         btn.setOnClickListener {
-            zShit = zValue  // hommataan erotus
+            zStartValueFromButton = zSensorValue  // hommataan erotus
 
-            captureTxt.text = zValue.toString()
             
-            halfFlipNumber = 0
-            halfFlipCounter.text = halfFlipNumber.toString()
-        }
+            shuvitNumber = 0
+            halfFlipCounter.text = shuvitNumber.toString()
 
-        btn2.setOnClickListener {
             xStartValueFromButton = xSensorValue
-
-            captureTxt2.text = xSensorValue.toString()
 
             kickFlipNumber = 0
             kickFlipCounter.text = kickFlipNumber.toString()
@@ -78,7 +82,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
             tv_yValue.text = String.format("y %.3f", y)
 
-            zValue = event.values[2] // record z value to "global" variable
+            zSensorValue = event.values[2] // record z value to "global" variable
             xSensorValue = event.values[0] // recording x value to a variable
 
             if (xStartValueFromButton == null) {
@@ -97,26 +101,45 @@ class SandboxFragment : Fragment(), SensorEventListener {
                 }
             }
 
-            if (zShit == null) {
+            if (zStartValueFromButton == null) {
                 tv_zValue.text = String.format("z %.3f", z)
             } else {
                 tv_zValue.text = String.format("z %.3f", z)
 
-                paska = z - zShit!!
-                resettedZ.text = String.format("new z %.3f", paska)
+                zRunningFloat = z - zStartValueFromButton!!
+                resettedZ.text = String.format("new z %.3f", zRunningFloat)
 
-                if (paska!! > 1 || paska!! < -1) {
+                if (zRunningFloat!! > 1 || zRunningFloat!! < -1) {
 
-                    halfFlipNumber++
-                    halfFlipCounter.text = halfFlipNumber.toString()
+                    shuvitNumber++
+                    halfFlipCounter.text = shuvitNumber.toString()
 
-                    zShit = zValue
+                    zStartValueFromButton = zSensorValue
                 }
             }
 
 
         } else {
             Log.d("DBG", "Jotain paskaa meni vikaan")
+        }
+
+        // accelerometer sensor
+        if (event?.sensor == acceleroSensor && event != null) {
+            val z = event.values[2]
+
+            if (z > -1 && z < 1 && !throwBool && (pitchValue > -20 && pitchValue < 20)) {
+                throwBool = true
+                throwCounter++
+                ollieCounter.text = "Ollies: " + throwCounter
+            } else if (z > 8.5) {
+                throwBool = false
+            }
+        }
+
+        // pitch sensor
+        if (event?.sensor == pitchSensor && event != null) {
+            pitchValue = event.values[1]
+
         }
     }
 
@@ -127,6 +150,14 @@ class SandboxFragment : Fragment(), SensorEventListener {
     override fun onResume() {
         super.onResume()
         rotationSensor?.also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
+        }
+
+        acceleroSensor?.also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
+        }
+
+        pitchSensor?.also {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
         }
     }
