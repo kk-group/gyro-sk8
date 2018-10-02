@@ -24,6 +24,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var pitchSensor: Sensor? = null
     private var acceleroSensor: Sensor? = null
     private var gyroSensor: Sensor? = null
+    private var gravitySensor: Sensor? = null
 
     // sensor values
     private var zSensorValue: Float? = null
@@ -39,6 +40,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var pitchValue: Float = 0f
     private var rollValue: Float = 0f
     private var throwBool: Boolean = false
+    private var flipBool: Boolean = false
     private var ollieNumber: Int = 0
 
     // accelerometer values
@@ -51,7 +53,13 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var yGyro: Float = 0f
     private var zGyro: Float = 0f
 
+    // gravity
+    private var xGravity: Float = 0f
+    private var yGravity: Float = 0f
+    private var zGravity: Float = 0f
+
     var kcount  = 0
+    var flipNum = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -63,6 +71,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
         pitchSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)
         acceleroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+        gravitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
 
 
         /**
@@ -96,21 +105,47 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
 
+        // check if device is flat and change background color according to it
         if (checkFlat()) {
             relativeLayout.setBackgroundColor(Color.parseColor("#33FF41")) // green
         } else {
             relativeLayout.setBackgroundColor(Color.parseColor("#FF5733")) // red
         }
 
-        if (!checkFlat() && event?.sensor == gyroSensor) {
-
-            if (yGyro > 10 && yGyro < 15) {
-                kcount++
-                kickFlipDebugText.text = "you kick fliped $kcount times"
-            }
+        if (checkFlat()) {
+            flipNum = 0
+            flipBool = false
         }
 
+        if (event?.sensor == gravitySensor && event != null) {
 
+            // kickflip with right hand
+            if (zGravity > 9 && !flipBool) {
+                flipNum = 0
+            } else if (xGravity < -7 && flipNum == 0) {
+                flipNum = 1
+            } else if (zGravity < -7 && flipNum == 1) {
+                flipNum = 2
+            } else if (xGravity > 7 && flipNum == 2) {
+                flipNum = 3
+            }
+
+        }
+
+        if (flipNum == 3 && !flipBool) {
+            flipBool = true
+            kcount++
+            kickFlipDebugText.text = "kickflips: $kcount"
+        }
+
+        /**
+         * Log gravity values
+         */
+        if (event?.sensor == gravitySensor && event != null) {
+            xGravity = event.values[0]
+            yGravity = event.values[1]
+            zGravity = event.values[2]
+        }
 
         /**
          * Pitch detection
@@ -225,6 +260,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
         }
 
         gyroSensor?.also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
+        }
+
+        gravitySensor?.also {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
         }
     }
