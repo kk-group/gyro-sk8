@@ -1,6 +1,7 @@
 package kk_group.gyrosk8
 
 import android.content.Context
+import android.graphics.Color
 import android.hardware.Sensor
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,7 +11,6 @@ import android.view.ViewGroup
 import android.hardware.SensorManager
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
-import android.util.Log
 import android.widget.Button
 import kotlinx.android.synthetic.main.sandbox_fragment.*
 
@@ -19,10 +19,13 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
 
+    // sensors
     private var rotationSensor: Sensor? = null
     private var pitchSensor: Sensor? = null
     private var acceleroSensor: Sensor? = null
+    private var gyroSensor: Sensor? = null
 
+    // sensor values
     private var zSensorValue: Float? = null
     private var zStartValueFromButton: Float? = null
     private var shuvitNumber: Int = 0
@@ -34,24 +37,33 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var kickFlipNumber: Int = 0
 
     private var pitchValue: Float = 0f
+    private var rollValue: Float = 0f
     private var throwBool: Boolean = false
-    private var throwCounter: Int = 0
+    private var ollieNumber: Int = 0
+
+    // accelerometer values
+    private var xAccelero: Float = 0f
+    private var yAccelero: Float = 0f
+    private var zAccelero: Float = 0f
+
+    // gyroscope
+    private var xGyro: Float = 0f
+    private var yGyro: Float = 0f
+    private var zGyro: Float = 0f
+
+    var kcount  = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.sandbox_fragment, container, false)
 
-        this.sensorManager = layoutInflater.context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = layoutInflater.context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
         pitchSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION)
         acceleroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
 
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null) {
-            Log.d("DBG", "Sensor found")
-        } else {
-            Log.d("DBG", "Sensor not found")
-        }
 
         /**
          * Reset button
@@ -64,19 +76,64 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
             shuvitNumber = 0
             kickFlipNumber = 0
+            ollieNumber = 0
 
-            halfFlipCounter.text = shuvitNumber.toString()
-            kickFlipCounter.text = kickFlipNumber.toString()
+            halfFlipCounter.text = String.format("Rotation: $shuvitNumber")
+            kickFlipCounter.text = String.format("Flips: $kickFlipNumber")
+            ollieCounter.text = String.format("Ollies: $ollieNumber")
         }
 
         return view
     }
 
+    private fun checkFlat(): Boolean {
+        if ((pitchValue < 20 && pitchValue > -20) && (rollValue < 20 && rollValue > -20)) {
+            return true
+        }
+
+        return false
+    }
+
     override fun onSensorChanged(event: SensorEvent?) {
+
+        if (checkFlat()) {
+            relativeLayout.setBackgroundColor(Color.parseColor("#33FF41")) // green
+        } else {
+            relativeLayout.setBackgroundColor(Color.parseColor("#FF5733")) // red
+        }
+
+        if (!checkFlat() && event?.sensor == gyroSensor) {
+
+            if (yGyro > 10 && yGyro < 15) {
+                kcount++
+                kickFlipDebugText.text = "you kick fliped $kcount times"
+            }
+        }
+
+
+
+        /**
+         * Pitch detection
+         */
+        if (event?.sensor == pitchSensor && event != null) {
+            pitchValue = event.values[1]
+            rollValue = event.values[2]
+
+        }
+
+        /**
+         * Gyroscope detections
+         */
+        if (event?.sensor == pitchSensor && event != null) {
+            xGyro = event.values[0]
+            yGyro = event.values[1]
+            zGyro = event.values[2]
+        }
+
         if (event?.sensor == rotationSensor && event != null) {
 
             /**
-             * Initializing sensor data X Y Z
+             * Initializing rotation sensor data X Y Z
              */
             val x = event.values[0]
             val y = event.values[1]
@@ -85,10 +142,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
             tv_yValue.text = String.format("y %.3f", y)
 
             zSensorValue = event.values[2] // record z value to "global" variable
-            xSensorValue = event.values[0] // recording x value to a variable
+            xSensorValue = event.values[0] // record x value to "global" variable
 
             /**
-             * Kickflip functionality
+             * Flip functionality
              */
 
             if (xStartValueFromButton == null) {
@@ -102,7 +159,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
                 if (xRunningFloat!! > 0.8 || xRunningFloat!! < -0.8) {
 
                     kickFlipNumber++
-                    kickFlipCounter.text = String.format("Damn bro! You've flipped $kickFlipNumber times")
+                    kickFlipCounter.text = String.format("Flips: $kickFlipNumber")
                     xStartValueFromButton = xSensorValue
                 }
             }
@@ -125,39 +182,32 @@ class SandboxFragment : Fragment(), SensorEventListener {
                     // Calculating rotation from number of shuvits
                     val rotationCalculation = shuvitNumber * 180
 
-                    halfFlipCounter.text = String.format("Rotations $rotationCalculation° total")
+                    halfFlipCounter.text = String.format("Rotation: $rotationCalculation°")
                     String.format("Rotations $rotationCalculation° total")
                     zStartValueFromButton = zSensorValue
                 }
             }
-
-
-        } else {
-            Log.d("DBG", "Jotain paskaa meni vikaan")
         }
 
-        // accelerometer sensor
+        /**
+         * Ollie functionality
+         */
         if (event?.sensor == acceleroSensor && event != null) {
-            val z = event.values[2]
+            xAccelero = event.values[0]
+            yAccelero = event.values[1]
+            zAccelero = event.values[2]
 
-            if (z > -1 && z < 1 && !throwBool && (pitchValue > -20 && pitchValue < 20)) {
+            if (zAccelero > -1 && zAccelero < 1 && !throwBool && (pitchValue > -20 && pitchValue < 20)) {
                 throwBool = true
-                throwCounter++
-                ollieCounter.text = String.format("Ollies: $throwCounter")
-            } else if (z > 8.5) {
+                ollieNumber++
+                ollieCounter.text = String.format("Ollies: $ollieNumber")
+            } else if (zAccelero > 8.5) {
                 throwBool = false
             }
-        }
-
-        // pitch sensor
-        if (event?.sensor == pitchSensor && event != null) {
-            pitchValue = event.values[1]
-
         }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-
     }
 
     override fun onResume() {
@@ -171,6 +221,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
         }
 
         pitchSensor?.also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
+        }
+
+        gyroSensor?.also {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
         }
     }
