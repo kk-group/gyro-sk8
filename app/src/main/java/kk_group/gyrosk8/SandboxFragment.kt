@@ -12,6 +12,7 @@ import android.hardware.SensorManager
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.widget.Button
+import android.widget.TextView
 import kotlinx.android.synthetic.main.sandbox_fragment.*
 
 
@@ -58,7 +59,14 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var yGravity: Float = 0f
     private var zGravity: Float = 0f
 
-    var kcount  = 0
+    /**
+     * stance is the hand the player is using
+     * FALSE = regular / left hand
+     * TRUE = goofy / right hand
+     */
+    private var stance: Boolean = true
+
+    var flipCount  = 0
     var flipNum = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -86,10 +94,22 @@ class SandboxFragment : Fragment(), SensorEventListener {
             shuvitNumber = 0
             kickFlipNumber = 0
             ollieNumber = 0
+            flipCount = 0
 
             halfFlipCounter.text = String.format("Rotation: $shuvitNumber")
             kickFlipCounter.text = String.format("Flips: $kickFlipNumber")
             ollieCounter.text = String.format("Ollies: $ollieNumber")
+            flipCountText.text = String.format("flips: $flipCount")
+        }
+
+        //changeStance()
+
+        val stanceBtn = view.findViewById(R.id.stanceButton) as Button
+        val stanceTxt = view.findViewById(R.id.stancetext) as TextView
+
+        stanceBtn.setOnClickListener {
+            stance = !stance
+            changeStance()
         }
 
         return view
@@ -101,6 +121,15 @@ class SandboxFragment : Fragment(), SensorEventListener {
         }
 
         return false
+    }
+
+    private fun changeStance() {
+        if (stance) {
+            stancetext.text = String.format("current stance: right")
+        }  else {
+            stancetext.text = String.format("current stance: left")
+        }
+
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -119,23 +148,45 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
         if (event?.sensor == gravitySensor && event != null) {
 
-            // kickflip with right hand
+            // flip to the right side
             if (zGravity > 9 && !flipBool) {
                 flipNum = 0
             } else if (xGravity < -7 && flipNum == 0) {
                 flipNum = 1
-            } else if (zGravity < -7 && flipNum == 1) {
+            } else if (zGravity < -7 && flipNum == 1 && (zAccelero < 1 && zGyro > 2)) {
                 flipNum = 2
             } else if (xGravity > 7 && flipNum == 2) {
                 flipNum = 3
+
+                if (stance) {
+                    latestFlipName.text = String.format("kickflip")
+                } else {
+                    latestFlipName.text = String.format("heelflip")
+                }
             }
 
+            // flip to the left side
+            if (zGravity > 9 && !flipBool) {
+                flipNum = 0
+            } else if (xGravity > 7 && flipNum == 0) {
+                flipNum = 1
+            } else if (zGravity < -7 && flipNum == 1 && (zAccelero < 1 && zGyro < 2)) {
+                flipNum = 2
+            } else if (xGravity < -7 && flipNum == 2) {
+                flipNum = 3
+
+                if (stance) {
+                    latestFlipName.text = String.format("heelflip")
+                } else {
+                    latestFlipName.text = String.format("kickflip")
+                }
+            }
         }
 
         if (flipNum == 3 && !flipBool) {
             flipBool = true
-            kcount++
-            kickFlipDebugText.text = "kickflips: $kcount"
+            flipCount++
+            flipCountText.text = String.format("flips: $flipCount")
         }
 
         /**
