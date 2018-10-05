@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">GyroSK8</string>
+
+    <string name="slide_1_title">Gyro-SK8</string>
+    <string name="slide_2_title">Disclaimer</string>
+    <string name="slide_3_title">Show me!</string>
+
+    <string name="slide_1_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="slide_2_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="slide_3_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+
     <string name="disclaimerText">I understand and agree that playing Gyro-Sk8 application is entirely at my own risk. I understand and agree that the author of Gyro-Sk8 shall in no event be liable for any direct, indirect, incidental, consequential, or exemplary damages or injuries</string>
     <string name="disclaimer">DISCLAIMER:</string>
     <string name="disagree">Disagree</string>
     <string name="agree">Agree</string>
+
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="start">Start</string>
 </resources>

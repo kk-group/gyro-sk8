@@ -5,6 +5,44 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="25dp">
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btShowSlider2"
+        android:layout_width="244dp"
+        android:layout_height="41dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="138dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="74dp"
+        android:background="@drawable/btn_background"
+        android:text="Go SKATE"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btShowSlider"
+        tools:ignore="HardcodedText" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btShowSlider"
+        android:layout_width="236dp"
+        android:layout_height="43dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="41dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btn_background"
+        android:text="Show Slider Again"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btShowSlider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
 </android.support.constraint.ConstraintLayout>
