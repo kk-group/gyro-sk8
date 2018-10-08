@@ -277,17 +277,17 @@ class SandboxFragment : Fragment(), SensorEventListener {
                 tv_zValue.text = String.format("z %.3f", z)
 
                 zRunningFloat = z - zStartValueFromButton!!
-                zValueAfterReset.text = String.format("new z %.3f", zRunningFloat)
+                zValueAfterReset.text = String.format("z Running Float %.3f", zRunningFloat)
 
                 if (zRunningFloat!! > 1 || zRunningFloat!! < -1) {
                     shuvitNumber++
 
-                    // Calculating rotation from number of shuvits
+                    // Calculating rotation from number of shuvits THIS USED FOR POINTS CALCULATION
                     val rotationCalculation = shuvitNumber * 180
 
                     halfFlipCounter.text = String.format("Rotation: $rotationCalculation°")
-                    String.format("Rotations $rotationCalculation° total")
                     zStartValueFromButton = zSensorValue
+
                 }
             }
         }
@@ -340,6 +340,8 @@ class SandboxFragment : Fragment(), SensorEventListener {
         super.onPause()
         sensorManager.unregisterListener(this)
     }
+
+    
 }
 
 

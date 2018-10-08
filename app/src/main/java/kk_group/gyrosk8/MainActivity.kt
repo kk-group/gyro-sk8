@@ -12,18 +12,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
-        btShowSlider.setOnClickListener {
+
+        btnShowSlider.setOnClickListener {
             PrefManager(applicationContext).setLaunched(true)
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
         }
 
-        btShowSlider2.setOnClickListener {
-            supportFragmentManager.beginTransaction().add(R.id.root_layout, SandboxFragment()).commit()
-            btShowSlider.visibility = View.GONE
-            btShowSlider2.visibility = View.GONE
+        btnSkate.setOnClickListener {
+//            supportFragmentManager.beginTransaction().add(R.id.root_layout, SandboxFragment()).commit()
+            startActivity(Intent(this, SkateActivity::class.java))
+//            btnShowSlider.visibility = View.GONE
+//            btnSkate.visibility = View.GONE
         }
+
+
 
     }
 }
