@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">GyroSK8</string>
 
-    <string name="slide_1_title">Gyro-SK8</string>
-    <string name="slide_2_title">Disclaimer</string>
-    <string name="slide_3_title">Show me!</string>
+    <string name="slide_1_title">Welcome to Gyro-SK8!</string>
+    <string name="slide_2_title">How do I play?</string>
+    <string name="slide_3_title">Let me in, I am ready! </string>
 
-    <string name="slide_1_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-    <string name="slide_2_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
-    <string name="slide_3_desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="slide_1_desc">Gyro-SK8 is a mobile gaming experience aimed for hardcore players. Aim is to compete using your phone as a skateboard.</string>
+    <string name="slide_2_desc">Choose your stance and start flipping the phone for points! Remember to use one hand only! No cheating!</string>
+    <string name="slide_3_desc">By pressing start I understand and agree that playing is entirely at my own risk. Gyro-Sk8 shall in no event be liable for any direct, indirect, incidental, consequential, or exemplary damages or injuries</string>
 
     <string name="disclaimerText">I understand and agree that playing Gyro-Sk8 application is entirely at my own risk. I understand and agree that the author of Gyro-Sk8 shall in no event be liable for any direct, indirect, incidental, consequential, or exemplary damages or injuries</string>
     <string name="disclaimer">DISCLAIMER:</string>

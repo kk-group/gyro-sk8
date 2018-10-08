@@ -9,7 +9,7 @@ class PrefManager(context: Context) {
     private var IS_LAUNCHED = "IsLaunched"
 
     init {
-        pref = context.getSharedPreferences("Intro-Slider", Context.MODE_PRIVATE)
+        pref = context.getSharedPreferences("gyro-sk8", Context.MODE_PRIVATE)
         editor = pref!!.edit()
     }
 

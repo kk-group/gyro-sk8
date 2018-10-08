@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        
         btShowSlider.setOnClickListener {
             PrefManager(applicationContext).setLaunched(true)
             startActivity(Intent(this, IntroActivity::class.java))
