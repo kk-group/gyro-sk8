@@ -11,14 +11,24 @@ class SkateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skate)
 
+        val bundl = Bundle()
+
+        val skateFragment  = SandboxFragment()
+
         btnLeft.setOnClickListener {
-            supportFragmentManager.beginTransaction().add(R.id.skate_layout, SandboxFragment()).commit()
+            bundl.putBoolean("stance", false)
+            skateFragment.setArguments(bundl)
+
+            supportFragmentManager.beginTransaction().add(R.id.skate_layout, skateFragment).commit()
             btnLeft.visibility = View.GONE
             btnRight.visibility = View.GONE
         }
 
         btnRight.setOnClickListener {
-            supportFragmentManager.beginTransaction().add(R.id.skate_layout, SandboxFragment()).commit()
+            bundl.putBoolean("stance", true)
+            skateFragment.setArguments(bundl)
+
+            supportFragmentManager.beginTransaction().add(R.id.skate_layout, skateFragment).commit()
             btnLeft.visibility = View.GONE
             btnRight.visibility = View.GONE
         }

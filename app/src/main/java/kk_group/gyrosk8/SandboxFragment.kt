@@ -15,11 +15,9 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Button
 import kotlinx.android.synthetic.main.sandbox_fragment.*
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 
-class SandboxFragment : Fragment(), SensorEventListener {
+class SandboxFragment() : Fragment(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
 
@@ -48,8 +46,8 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var flipBool: Boolean = false
 
     // variables to keep number of tricks done
-    private var ollieNumber: Int = 0
-    private var rotationNumber: Int = 0
+    private var ollieCount: Int = 0
+    private var rotationCount: Int = 0
     private var flipCount = 0
 
     // accelerometer values
@@ -66,6 +64,12 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var xGravity: Float = 0f
     private var yGravity: Float = 0f
     private var zGravity: Float = 0f
+
+    // game points system variables
+    private val olliePoint: Int = 5
+    private val flipPoint: Int = 10
+    private val rotationPoint: Int = 7
+    private var totalScore: Int = 0
 
     /**
      * stance is the hand the player is using
@@ -88,6 +92,11 @@ class SandboxFragment : Fragment(), SensorEventListener {
         gyroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
         gravitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
 
+        /**
+         * set stance from the bundle
+         */
+        stance = getArguments()!!.getBoolean("stance")
+
 
         /**
          * Reset button
@@ -98,13 +107,13 @@ class SandboxFragment : Fragment(), SensorEventListener {
             zStartValueFromButton = zSensorValue  // hommataan erotus
             xStartValueFromButton = xSensorValue
 
-            rotationNumber = 0
+            rotationCount = 0
 
-            ollieNumber = 0
+            ollieCount = 0
             flipCount = 0
 
-            halfFlipCounter.text = String.format("Rotation: $rotationNumber")
-            ollieCounter.text = String.format("Ollies: $ollieNumber")
+            halfFlipCounter.text = String.format("Rotation: $rotationCount")
+            ollieCounter.text = String.format("Ollies: $ollieCount")
             flipCountText.text = String.format("flips: $flipCount")
 
             timer(20000,1000).start()
@@ -157,6 +166,14 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
             override fun onFinish() {
                 Log.d("DEBUG", "FINISHED COUNTDOWN")
+                var ollieScore = olliePoint * ollieCount
+                var flipScore = flipPoint * flipCount
+                var rotationScore = rotationPoint * rotationCount
+
+                totalScore = ollieScore + flipScore + rotationScore
+
+
+                scoreText.text = String.format("Total score: $totalScore")
             }
         }
     }
@@ -236,18 +253,11 @@ class SandboxFragment : Fragment(), SensorEventListener {
             val y = event.values[1]
             val z = event.values[2]
 
-            tv_yValue.text = String.format("y %.3f", y)
-
             zSensorValue = event.values[2] // record z value to "global" variable
             xSensorValue = event.values[0] // record x value to "global" variable
 
-
-            tv_zValue.text = String.format("z %.3f", z)
-
             if (zRunningFloat !=  null) {
                 zRunningFloat = z - zStartValueFromButton!!
-
-                zValueAfterReset.text = String.format("new z %.3f", zRunningFloat)
 
                 /**
                  * TRICK
@@ -255,10 +265,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
                  */
 
                 if (zRunningFloat!! > 1 || zRunningFloat!! < -1) {
-                    rotationNumber++
+                    rotationCount++
 
                     // Calculating rotation from number of shuvits
-                    val rotationCalculation = rotationNumber * 180
+                    val rotationCalculation = rotationCount * 180
 
                     halfFlipCounter.text = String.format("Rotation: $rotationCalculation°")
                     zStartValueFromButton = zSensorValue
@@ -279,8 +289,8 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
             if (zAccelero > -1 && zAccelero < 1 && !throwBool && !flipBool && (yGyro < 3 && yGyro > -3)) {
                 throwBool = true
-                ollieNumber++
-                ollieCounter.text = String.format("Ollies: $ollieNumber")
+                ollieCount++
+                ollieCounter.text = String.format("Ollies: $ollieCount")
             } else if (zAccelero > 8.5) {
                 throwBool = false
             }

@@ -42,81 +42,26 @@
             android:text="Ollies: " />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_xValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="194dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_yValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_xValue" />
-
-    <TextView
-        android:id="@+id/tv_zValue"
-        android:layout_width="wrap_content"
-        android:layout_height="23dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_yValue" />
-
     <Button
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="201dp"
         android:text="Reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_zValue" />
-
-    <TextView
-        android:id="@+id/zValueAfterReset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
-        android:layout_marginEnd="73dp"
-        android:layout_marginStart="90dp"
-        android:text="zValueAfterReset"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/xValueAfterReset"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/xValueAfterReset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
-        android:layout_marginEnd="52dp"
-        android:text="yValueAfterReset"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/stanceButton" />
 
     <TextView
         android:id="@+id/flipCountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
-        android:layout_marginStart="168dp"
         android:layout_marginTop="27dp"
         android:text="flip count"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_zValue"
         app:layout_constraintTop_toBottomOf="@+id/latestFlipName" />
 
     <TextView
@@ -125,12 +70,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="54dp"
-        android:layout_marginStart="166dp"
         android:layout_marginTop="226dp"
         android:text="latest flip:"
         app:layout_constraintBottom_toTopOf="@+id/flipCountText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_yValue"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -168,5 +111,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resetButton" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="161dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="84dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/latestFlipName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </android.support.constraint.ConstraintLayout>
