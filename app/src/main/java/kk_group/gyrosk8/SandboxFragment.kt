@@ -11,8 +11,12 @@ import android.view.ViewGroup
 import android.hardware.SensorManager
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.os.CountDownTimer
+import android.util.Log
 import android.widget.Button
 import kotlinx.android.synthetic.main.sandbox_fragment.*
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class SandboxFragment : Fragment(), SensorEventListener {
@@ -43,10 +47,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var throwBool: Boolean = false
     private var flipBool: Boolean = false
 
-    // variables for different trick
+    // variables to keep number of tricks done
     private var ollieNumber: Int = 0
-    private var shuvitNumber: Int = 0
-    private var kickFlipNumber: Int = 0
+    private var rotationNumber: Int = 0
+    private var flipCount = 0
 
     // accelerometer values
     private var xAccelero: Float = 0f
@@ -70,8 +74,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
      */
     private var stance: Boolean = true
 
-    private var flipCount = 0
-    private var flipNum = 0
+    private var flipNum = 0 // variable that gets checked on each flip
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -95,15 +98,16 @@ class SandboxFragment : Fragment(), SensorEventListener {
             zStartValueFromButton = zSensorValue  // hommataan erotus
             xStartValueFromButton = xSensorValue
 
-            shuvitNumber = 0
-            kickFlipNumber = 0
+            rotationNumber = 0
+
             ollieNumber = 0
             flipCount = 0
 
-            halfFlipCounter.text = String.format("Rotation: $shuvitNumber")
-            kickFlipCounter.text = String.format("Flips: $kickFlipNumber")
+            halfFlipCounter.text = String.format("Rotation: $rotationNumber")
             ollieCounter.text = String.format("Ollies: $ollieNumber")
             flipCountText.text = String.format("flips: $flipCount")
+
+            timer(20000,1000).start()
         }
 
         val stanceBtn = view.findViewById(R.id.stanceButton) as Button
@@ -139,18 +143,36 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
     }
 
+    /**
+     * Method for gameplay timer
+     */
+    private fun timer(millisInFuture:Long,countDownInterval:Long): CountDownTimer {
+
+        return object: CountDownTimer(millisInFuture,countDownInterval){
+            override fun onTick(millisUntilFinished: Long){
+                val timeRemaining = millisUntilFinished / 1000
+                gameplayTimer.text = "time left: $timeRemaining sec"
+                Log.d("DEBUG", "$timeRemaining")
+            }
+
+            override fun onFinish() {
+                Log.d("DEBUG", "FINISHED COUNTDOWN")
+            }
+        }
+    }
+
     override fun onSensorChanged(event: SensorEvent?) {
 
-        // check if device is flat and change background color according to it
+        /**
+         *  check if device is flat and change background color according to it
+         *  also resets flipNumber and sets boolean to false to tell the program that phone is on somewhat flat surface and not in mid-flip
+         */
         if (checkFlat()) {
             relativeLayout.setBackgroundColor(Color.parseColor("#33FF41")) // green
-        } else {
-            relativeLayout.setBackgroundColor(Color.parseColor("#FF5733")) // red
-        }
-
-        if (checkFlat()) {
             flipNum = 0
             flipBool = false
+        } else {
+            relativeLayout.setBackgroundColor(Color.parseColor("#FF5733")) // red
         }
 
         if (event?.sensor == gravitySensor && event != null) {
@@ -206,6 +228,64 @@ class SandboxFragment : Fragment(), SensorEventListener {
             flipCountText.text = String.format("flips: $flipCount")
         }
 
+        if (event?.sensor == rotationSensor && event != null) {
+
+            /**
+             * Initializing rotation sensor data X Y Z
+             */
+            val y = event.values[1]
+            val z = event.values[2]
+
+            tv_yValue.text = String.format("y %.3f", y)
+
+            zSensorValue = event.values[2] // record z value to "global" variable
+            xSensorValue = event.values[0] // record x value to "global" variable
+
+
+            tv_zValue.text = String.format("z %.3f", z)
+
+            if (zRunningFloat !=  null) {
+                zRunningFloat = z - zStartValueFromButton!!
+
+                zValueAfterReset.text = String.format("new z %.3f", zRunningFloat)
+
+                /**
+                 * TRICK
+                 * Shuvit functionality
+                 */
+
+                if (zRunningFloat!! > 1 || zRunningFloat!! < -1) {
+                    rotationNumber++
+
+                    // Calculating rotation from number of shuvits
+                    val rotationCalculation = rotationNumber * 180
+
+                    halfFlipCounter.text = String.format("Rotation: $rotationCalculation°")
+                    zStartValueFromButton = zSensorValue
+                    zRunningFloat = z - zStartValueFromButton!!
+                }
+            }
+        }
+
+        if (event?.sensor == acceleroSensor && event != null) {
+            xAccelero = event.values[0]
+            yAccelero = event.values[1]
+            zAccelero = event.values[2]
+
+            /**
+             * TRICK
+             * Ollie functionality
+             */
+
+            if (zAccelero > -1 && zAccelero < 1 && !throwBool && !flipBool && (yGyro < 3 && yGyro > -3)) {
+                throwBool = true
+                ollieNumber++
+                ollieCounter.text = String.format("Ollies: $ollieNumber")
+            } else if (zAccelero > 8.5) {
+                throwBool = false
+            }
+        }
+
         /**
          * Log gravity values
          */
@@ -216,7 +296,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
         }
 
         /**
-         * Pitch detection
+         * Log pitch values
          */
         if (event?.sensor == pitchSensor && event != null) {
             pitchValue = event.values[1]
@@ -225,88 +305,12 @@ class SandboxFragment : Fragment(), SensorEventListener {
         }
 
         /**
-         * Gyroscope detections
+         * Log gyroscope values
          */
         if (event?.sensor == pitchSensor && event != null) {
             xGyro = event.values[0]
             yGyro = event.values[1]
             zGyro = event.values[2]
-        }
-
-        if (event?.sensor == rotationSensor && event != null) {
-
-            /**
-             * Initializing rotation sensor data X Y Z
-             */
-            val x = event.values[0]
-            val y = event.values[1]
-            val z = event.values[2]
-
-            tv_yValue.text = String.format("y %.3f", y)
-
-            zSensorValue = event.values[2] // record z value to "global" variable
-            xSensorValue = event.values[0] // record x value to "global" variable
-
-            /**
-             * Flip functionality
-
-
-            if (xStartValueFromButton == null) {
-                tv_xValue.text = String.format("x %.3f", x)
-            } else {
-                tv_xValue.text = String.format("x %.3f", x)
-
-                xRunningFloat = x - xStartValueFromButton!!
-                xValueAfterReset.text = String.format("Value X %.3f", xRunningFloat)
-
-                if (xRunningFloat!! > 0.8 || xRunningFloat!! < -0.8) {
-
-                    kickFlipNumber++
-                    kickFlipCounter.text = String.format("Flips: $kickFlipNumber")
-                    xStartValueFromButton = xSensorValue
-                }
-            } */
-
-            /**
-             * Shuvit functionality
-             */
-
-            if (zStartValueFromButton == null) {
-                tv_zValue.text = String.format("z %.3f", z)
-            } else {
-                tv_zValue.text = String.format("z %.3f", z)
-
-                zRunningFloat = z - zStartValueFromButton!!
-                zValueAfterReset.text = String.format("z Running Float %.3f", zRunningFloat)
-
-                if (zRunningFloat!! > 1 || zRunningFloat!! < -1) {
-                    shuvitNumber++
-
-                    // Calculating rotation from number of shuvits THIS USED FOR POINTS CALCULATION
-                    val rotationCalculation = shuvitNumber * 180
-
-                    halfFlipCounter.text = String.format("Rotation: $rotationCalculation°")
-                    zStartValueFromButton = zSensorValue
-
-                }
-            }
-        }
-
-        /**
-         * Ollie functionality
-         */
-        if (event?.sensor == acceleroSensor && event != null) {
-            xAccelero = event.values[0]
-            yAccelero = event.values[1]
-            zAccelero = event.values[2]
-
-            if (zAccelero > -1 && zAccelero < 1 && !throwBool && !flipBool && (yGyro < 3 && yGyro > -3)) {
-                throwBool = true
-                ollieNumber++
-                ollieCounter.text = String.format("Ollies: $ollieNumber")
-            } else if (zAccelero > 8.5) {
-                throwBool = false
-            }
         }
     }
 
@@ -315,6 +319,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
+
+        /**
+         * Register listeners for all sensors
+         */
         rotationSensor?.also {
             sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI)
         }
@@ -338,10 +346,12 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
     override fun onPause() {
         super.onPause()
+
+        /**
+         * While paused and out of app unregister all sensor listeners to save battery
+         */
         sensorManager.unregisterListener(this)
     }
-
-    
 }
 
 
