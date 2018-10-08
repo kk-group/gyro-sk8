@@ -12,7 +12,6 @@ import android.hardware.SensorManager
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.widget.Button
-import android.widget.TextView
 import kotlinx.android.synthetic.main.sandbox_fragment.*
 
 
@@ -27,22 +26,27 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var gyroSensor: Sensor? = null
     private var gravitySensor: Sensor? = null
 
-    // sensor values
+    // rotation sensor values
     private var zSensorValue: Float? = null
     private var zStartValueFromButton: Float? = null
-    private var shuvitNumber: Int = 0
     private var zRunningFloat: Float? = null
 
     private var xSensorValue: Float? = null
     private var xStartValueFromButton: Float? = null
     private var xRunningFloat: Float? = null
-    private var kickFlipNumber: Int = 0
 
+    // orientation
     private var pitchValue: Float = 0f
     private var rollValue: Float = 0f
+
+    // booleans for checking purposes
     private var throwBool: Boolean = false
     private var flipBool: Boolean = false
+
+    // variables for different trick
     private var ollieNumber: Int = 0
+    private var shuvitNumber: Int = 0
+    private var kickFlipNumber: Int = 0
 
     // accelerometer values
     private var xAccelero: Float = 0f
@@ -66,8 +70,8 @@ class SandboxFragment : Fragment(), SensorEventListener {
      */
     private var stance: Boolean = true
 
-    var flipCount  = 0
-    var flipNum = 0
+    private var flipCount = 0
+    private var flipNum = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -102,10 +106,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
             flipCountText.text = String.format("flips: $flipCount")
         }
 
-        //changeStance()
-
         val stanceBtn = view.findViewById(R.id.stanceButton) as Button
-        val stanceTxt = view.findViewById(R.id.stancetext) as TextView
 
         stanceBtn.setOnClickListener {
             stance = !stance
@@ -115,6 +116,9 @@ class SandboxFragment : Fragment(), SensorEventListener {
         return view
     }
 
+    /**
+     * function that checks if device is somewhat flat
+     */
     private fun checkFlat(): Boolean {
         if ((pitchValue < 20 && pitchValue > -20) && (rollValue < 20 && rollValue > -20)) {
             return true
@@ -123,6 +127,9 @@ class SandboxFragment : Fragment(), SensorEventListener {
         return false
     }
 
+    /**
+     * function for changing stance (hand)
+     */
     private fun changeStance() {
         if (stance) {
             stancetext.text = String.format("current stance: right")
@@ -148,7 +155,12 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
         if (event?.sensor == gravitySensor && event != null) {
 
-            // flip to the right side
+            /**
+             * TRICK
+             * flip to the right side
+             * if stance = true = kickflip
+             * if stance = false =  heelflip
+             */
             if (zGravity > 9 && !flipBool) {
                 flipNum = 0
             } else if (xGravity < -7 && flipNum == 0) {
@@ -165,7 +177,12 @@ class SandboxFragment : Fragment(), SensorEventListener {
                 }
             }
 
-            // flip to the left side
+            /**
+             * TRICK
+             * flip to the left side
+             * if stance = true = heelflip
+             * if stance = false =  kickflip
+             */
             if (zGravity > 9 && !flipBool) {
                 flipNum = 0
             } else if (xGravity > 7 && flipNum == 0) {
@@ -232,7 +249,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
             /**
              * Flip functionality
-             */
+
 
             if (xStartValueFromButton == null) {
                 tv_xValue.text = String.format("x %.3f", x)
@@ -248,7 +265,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
                     kickFlipCounter.text = String.format("Flips: $kickFlipNumber")
                     xStartValueFromButton = xSensorValue
                 }
-            }
+            } */
 
             /**
              * Shuvit functionality
@@ -283,7 +300,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
             yAccelero = event.values[1]
             zAccelero = event.values[2]
 
-            if (zAccelero > -1 && zAccelero < 1 && !throwBool && (pitchValue > -20 && pitchValue < 20)) {
+            if (zAccelero > -1 && zAccelero < 1 && !throwBool && !flipBool && (yGyro < 3 && yGyro > -3)) {
                 throwBool = true
                 ollieNumber++
                 ollieCounter.text = String.format("Ollies: $ollieNumber")
