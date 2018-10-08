@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".SkateActivity"></activity>
+        <activity android:name=".SkateActivity" />
+        <activity android:name=".HiScoreActivity"></activity>
     </application>
 
 </manifest>

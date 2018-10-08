@@ -26,7 +26,9 @@ class MainActivity : AppCompatActivity() {
 //            btnSkate.visibility = View.GONE
         }
 
-
+        btnHiScores.setOnClickListener{
+            startActivity(Intent(this, HiScoreActivity::class.java))
+        }
 
     }
 }
