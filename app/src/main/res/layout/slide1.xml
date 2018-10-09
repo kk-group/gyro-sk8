@@ -18,7 +18,7 @@
             android:gravity="center"
             android:padding="20dp"
             android:text="@string/slide_1_title"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorDark2"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold"
             tools:ignore="SpUsage" />
