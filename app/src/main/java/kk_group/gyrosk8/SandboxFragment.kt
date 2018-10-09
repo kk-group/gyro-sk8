@@ -273,7 +273,6 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
                     halfFlipCounter.text = String.format("Rotation: $rotationCalculation°")
                     zStartValueFromButton = zSensorValue
-                    zRunningFloat = z - zStartValueFromButton!!
                 }
             }
         }

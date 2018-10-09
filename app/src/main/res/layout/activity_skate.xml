@@ -17,7 +17,7 @@
         android:layout_marginEnd="78dp"
         android:layout_marginStart="62dp"
         android:layout_marginTop="258dp"
-        android:text="Left"
+        android:text="Regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnRight"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,9 +30,21 @@
         android:layout_marginBottom="261dp"
         android:layout_marginEnd="68dp"
         android:layout_marginTop="258dp"
-        android:text="Right"
+        android:text="Goofy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="292dp"
+        android:layout_height="85dp"
+        android:fontFamily="@font/brown_fox"
+        android:gravity="center"
+        android:text="Choose Your Stance"
+        android:textColor="@color/colorDark"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="125dp" />
 
 </android.support.constraint.ConstraintLayout>
