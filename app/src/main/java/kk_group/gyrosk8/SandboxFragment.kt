@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.sandbox_fragment.*
 class SandboxFragment : Fragment(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
+    private lateinit var prefManager: PrefManager
 
     // sensors
     private var rotationSensor: Sensor? = null
@@ -97,6 +98,8 @@ class SandboxFragment : Fragment(), SensorEventListener {
          */
         stance = arguments!!.getBoolean("stance")
 
+        prefManager = PrefManager(activity!!.applicationContext)
+
 
         /**
          * Reset button
@@ -148,9 +151,15 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
                 totalScore = ollieScore + flipScore + rotationScore
 
-
                 scoreText.text = String.format("Total score: $totalScore")
 
+                prefManager.setTopScore("TESTMAN", totalScore)
+
+                // here we check if totalscore is the new top score and put it in if it is
+                if (prefManager.checkTopScore(totalScore)) {
+                    prefManager.setTopScore("TESTMAN", totalScore)
+
+                }
             }
         }
     }
@@ -232,7 +241,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
             if (zRotationStartValue !=  null) {
                 zRotationRunning = zRotation!! - zRotationStartValue!!
-                
+
                 /**
                  * TRICK
                  * rotation to the left side
