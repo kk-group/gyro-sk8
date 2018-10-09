@@ -12,7 +12,11 @@ class HiScoreActivity : AppCompatActivity() {
 
         val prefManager = PrefManager(this)
 
-        hiscoresTxt.text = String.format(prefManager.getTopScore()!!)
+        val topScore: Int =  prefManager.getTopScore()
+
+        val topUser: String = prefManager.getTopUser()!!
+
+        hiscoresTxt.text = String.format("TOP USER: $topUser SCORE: $topScore")
 
         hiscoresBtn.setOnClickListener {
 
