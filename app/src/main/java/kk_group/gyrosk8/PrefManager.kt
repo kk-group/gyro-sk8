@@ -29,8 +29,20 @@ class PrefManager(context: Context) {
         return pref!!.getBoolean(IS_LAUNCHED, true)
     }
 
-    fun lastScore() {
+    fun setTopScore(usr: String, score: Int) {
+        var topScore = "USER: $usr - POINTS: $score"
+        editor!!.putInt(HISCORE, score)
+        editor!!.putString(HISCORE, topScore)
+    }
 
+    fun getTopScore(): String? {
+        return pref!!.getString(HISCORE, "NO TOP SCORE FOUND")
+    }
+
+    fun checkTopScore(totalScore: Int):  Boolean {
+        var currentTopScore  = pref!!.getInt(HISCORE, 0)
+
+        return totalScore > currentTopScore
     }
 
 }

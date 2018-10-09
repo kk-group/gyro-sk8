@@ -10,6 +10,10 @@ class HiScoreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hi_score)
 
+        val prefManager = PrefManager(this)
+
+        hiscoresTxt.text = String.format(prefManager.getTopScore()!!)
+
         hiscoresBtn.setOnClickListener {
 
         }

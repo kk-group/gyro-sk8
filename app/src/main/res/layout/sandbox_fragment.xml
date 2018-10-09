@@ -7,121 +7,57 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="25dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="114dp"
-        android:layout_marginEnd="276dp"
-        android:layout_marginTop="40dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/kickFlipCounter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Flips:" />
-
-        <TextView
-            android:id="@+id/halfFlipCounter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Rotation: " />
-
-        <TextView
-            android:id="@+id/ollieCounter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Ollies: " />
-    </LinearLayout>
-
     <Button
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="148dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="201dp"
+        android:layout_marginBottom="205dp"
+        android:layout_marginEnd="182dp"
+        android:layout_marginStart="183dp"
+        android:layout_marginTop="38dp"
         android:text="Reset"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stanceButton" />
+        app:layout_constraintTop_toBottomOf="@+id/latestTrickName" />
 
     <TextView
-        android:id="@+id/flipCountText"
+        android:id="@+id/latestTrickName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:layout_marginTop="27dp"
-        android:text="flip count"
+        android:layout_marginBottom="38dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginStart="176dp"
+        android:text="Latest trick"
+        app:layout_constraintBottom_toTopOf="@+id/resetButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/latestFlipName" />
-
-    <TextView
-        android:id="@+id/latestFlipName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="54dp"
-        android:layout_marginTop="226dp"
-        android:text="latest flip:"
-        app:layout_constraintBottom_toTopOf="@+id/flipCountText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/stanceButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="122dp"
-        android:layout_marginTop="47dp"
-        android:text="change stance"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/stancetext" />
-
-    <TextView
-        android:id="@+id/stancetext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="40dp"
-        android:text="current stance: "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/gameplayTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="162dp"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="60dp"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/scoreText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resetButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="161dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="129dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/latestFlipName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/gameplayTimer" />
 
 </android.support.constraint.ConstraintLayout>
