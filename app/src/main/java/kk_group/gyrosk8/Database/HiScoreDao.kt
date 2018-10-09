@@ -7,8 +7,8 @@ import android.arch.persistence.room.Query
 
 @Dao
 interface HiScoreDao {
-    @Query("SELECT * FROM hiScores")
-    fun getHiScores(): String
+//    @Query("SELECT * FROM hiScores")
+//    fun getHiScores()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(hiScore: HiScoreData)

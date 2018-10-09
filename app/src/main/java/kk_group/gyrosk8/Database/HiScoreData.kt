@@ -9,7 +9,7 @@ data class HiScoreData(
         val userName: String,
         val score: Int) {
 
-    override fun toString(): String {
-        return "USR: $userName  SCORE: $score"
+    override fun toString(): String = "$userName $score"
     }
-}
+
+

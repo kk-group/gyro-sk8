@@ -28,7 +28,7 @@ class IntroActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Checking for first time launch - before calling setContentView()
+        // Checking for first time launch
         prefManager = PrefManager(this)
         if (!prefManager!!.isFirstTimeLaunch()) {
             launchHomeScreen()

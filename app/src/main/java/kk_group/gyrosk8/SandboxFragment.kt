@@ -17,7 +17,7 @@ import android.widget.Button
 import kotlinx.android.synthetic.main.sandbox_fragment.*
 
 
-class SandboxFragment() : Fragment(), SensorEventListener {
+class SandboxFragment : Fragment(), SensorEventListener {
 
     private lateinit var sensorManager: SensorManager
 
@@ -95,7 +95,7 @@ class SandboxFragment() : Fragment(), SensorEventListener {
         /**
          * set stance from the bundle
          */
-        stance = getArguments()!!.getBoolean("stance")
+        stance = arguments!!.getBoolean("stance")
 
 
         /**
@@ -174,6 +174,7 @@ class SandboxFragment() : Fragment(), SensorEventListener {
 
 
                 scoreText.text = String.format("Total score: $totalScore")
+
             }
         }
     }

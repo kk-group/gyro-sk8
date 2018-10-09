@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".SkateActivity" />
-        <activity android:name=".HiScoreActivity"></activity>
+        <activity android:name=".HiScoreActivity" />
     </application>
 
 </manifest>

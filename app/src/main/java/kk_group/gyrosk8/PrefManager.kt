@@ -3,6 +3,7 @@ package kk_group.gyrosk8
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import com.google.gson.Gson
 
 class PrefManager(context: Context) {
     private var pref: SharedPreferences? = null
@@ -28,19 +29,8 @@ class PrefManager(context: Context) {
         return pref!!.getBoolean(IS_LAUNCHED, true)
     }
 
-    fun setHiScore(usr: String, score: Int) {
-        editor!!.putString(HISCORE, "USER: $usr  SCORE: $score")
-        editor!!.commit()
+    fun lastScore() {
+
     }
 
-    fun getHiScore(): Set<String>  {
-
-        var set = pref!!.getStringSet(HISCORE, null)
-
-        for (i in set) {
-            Log.d("DEBUG", i.toString())
-        }
-
-        return set
-    }
 }

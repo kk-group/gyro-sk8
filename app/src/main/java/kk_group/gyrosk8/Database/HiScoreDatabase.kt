@@ -17,7 +17,7 @@ abstract class HiScoreDatabase: RoomDatabase() {
         @Synchronized
         fun get(context: Context): HiScoreDatabase {
             if (sInstance == null) {
-                sInstance = Room.databaseBuilder(context.applicationContext, HiScoreDatabase::class.java, "hiscores.db").build()
+                sInstance = Room.databaseBuilder(context.applicationContext, HiScoreDatabase::class.java, "hiScores.db").build()
             }
             return sInstance!!
         }
