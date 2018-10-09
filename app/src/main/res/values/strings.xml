@@ -3,14 +3,17 @@
 
     <string name="slide_1_title">Welcome to Gyro-SK8!</string>
     <string name="slide_2_title">How do I play?</string>
-    <string name="slide_3_title">DISCLAIMER</string>
+    <string name="slide_3_title">Let me skate!</string>
 
     <string name="slide_1_desc">A skateboarding game for android where your phone is the skateboard, and you\'re the skater. Do tricks by throwing stuff in the air and catching the phone. Skate or die!</string>
-    <string name="slide_2_desc">Choose your stance. Remember to use one hand only. No cheating!</string>
+    <string name="slide_2_desc">Choose your stance. Regular for left hand and Goofy for right hand. Remember to use one hand only. Get as many points as you can but no cheating!</string>
     <string name="slide_3_desc">By pressing start I understand and agree that playing is entirely at my own risk. Gyro-Sk8 shall in no event be liable for any direct, indirect, incidental, consequential, or exemplary damages or injuries</string>
 
     <string name="next">Next</string>
     <string name="skip">Skip</string>
-    <string name="start">Start</string>
+    <string name="start">Finish</string>
     <string name="logo">GyroSk8</string>
+    <string name="regular">Regular</string>
+    <string name="goofy">Goofy</string>
+    <string name="choose_your_stance">Choose Your Stance</string>
 </resources>

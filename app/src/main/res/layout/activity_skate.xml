@@ -8,43 +8,87 @@
     tools:context=".SkateActivity"
     android:id="@+id/skate_layout">
 
+    <ImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:scaleType="centerCrop"
+        android:src="@drawable/skateboardbg2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="261dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="258dp"
-        android:text="Regular"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="148dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/btn_background"
+        android:text="@string/regular"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnRight"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="261dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginTop="258dp"
-        android:text="Goofy"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="148dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_background"
+        android:text="@string/goofy"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btnLeft" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="292dp"
-        android:layout_height="85dp"
+        android:layout_width="291dp"
+        android:layout_height="111dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/brown_fox"
         android:gravity="center"
-        android:text="Choose Your Stance"
+        android:text="@string/choose_your_stance"
         android:textColor="@color/colorDark"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="125dp" />
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="163dp"
+        android:layout_height="363dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/lefthand" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="163dp"
+        android:layout_height="363dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ivBackground"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/righthand" />
 
 </android.support.constraint.ConstraintLayout>

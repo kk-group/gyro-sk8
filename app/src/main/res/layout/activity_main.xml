@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
@@ -12,7 +13,7 @@
         android:id="@+id/ivBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:contentDescription="@null"
         android:src="@drawable/skateboardbg"
         android:scaleType="centerCrop" />
 
@@ -102,7 +103,7 @@
         android:layout_marginStart="74dp"
         android:layout_marginTop="3dp"
         android:background="@drawable/btn_background"
-        android:text="Show Slider Again"
+        android:text="Show Tutorial Again"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
