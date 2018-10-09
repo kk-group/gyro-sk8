@@ -16,4 +16,10 @@
     <string name="regular">Regular</string>
     <string name="goofy">Goofy</string>
     <string name="choose_your_stance">Choose Your Stance</string>
+
+    <string name="alertDialogTitle">NEW HISCORE</string>
+    <string name="alertDialogMsg">YOU DID IT BRO! YOU BEAT THE CURRENT TOP SCORE AND ARE INVITED TO THE SKATING HALL OF FAME! JUST GIVE YOUR SK8 NAME! YOU GOT</string>
+    <string name="pointsTxt">POINTS!</string>
+    <string name="alertOkBtn">HELL YEA BROSKI</string>
+
 </resources>

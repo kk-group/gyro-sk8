@@ -1,5 +1,6 @@
 package kk_group.gyrosk8
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.hardware.Sensor
@@ -15,6 +16,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Button
 import kotlinx.android.synthetic.main.sandbox_fragment.*
+import android.widget.EditText
 
 
 class SandboxFragment : Fragment(), SensorEventListener {
@@ -132,6 +134,32 @@ class SandboxFragment : Fragment(), SensorEventListener {
     }
 
     /**
+     * Function that shows alert dialog when user makes new highscore
+     */
+    private fun showTopScoreDialog() {
+        val alertDialog = AlertDialog.Builder(activity!!).create()
+
+        alertDialog.setTitle(getString(R.string.alertDialogTitle))
+        alertDialog.setMessage(getString(R.string.alertDialogMsg) + " $totalScore " + getString(R.string.pointsTxt))
+
+        // create textfield
+        val usrTextField = EditText(activity!!.applicationContext)
+
+        alertDialog.setView(usrTextField)
+
+        // this is so the user HAS to set a name and get the glory
+        alertDialog.setCancelable(false)
+
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.alertOkBtn)
+        ) { dialog, which ->
+            prefManager.setTopUser(usrTextField.text.toString())
+            prefManager.setTopScore(totalScore)
+            dialog.dismiss() }
+        alertDialog.show()
+    }
+
+    /**
      * Method for gameplay timer
      */
     private fun timer(millisInFuture:Long,countDownInterval:Long): CountDownTimer {
@@ -155,8 +183,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
                 // here we check if totalscore is the new top score and put it in if it is
                 if (prefManager.checkTopScore(totalScore)) {
-                    prefManager.setTopUser("TESTMAN")
-                    prefManager.setTopScore(totalScore)
+                    //prefManager.setTopUser("TESTMAN")
+                    //prefManager.setTopScore(totalScore)
+
+                    showTopScoreDialog()
                 }
             }
         }
