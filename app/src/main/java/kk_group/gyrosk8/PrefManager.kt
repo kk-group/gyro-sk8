@@ -2,14 +2,13 @@ package kk_group.gyrosk8
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
-import com.google.gson.Gson
 
 class PrefManager(context: Context) {
     private var pref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
     private val IS_LAUNCHED = "IsLaunched"
-    private val HISCORE = "hiscore"
+    private val KEY_HISCORE = "hiscore"
+    private val KEY_USER = "user"
 
     private lateinit var hiScoreList: Set<String>
     private lateinit var context: Context
@@ -29,18 +28,26 @@ class PrefManager(context: Context) {
         return pref!!.getBoolean(IS_LAUNCHED, true)
     }
 
-    fun setTopScore(usr: String, score: Int) {
-        var topScore = "USER: $usr - POINTS: $score"
-        editor!!.putInt(HISCORE, score)
-        editor!!.putString(HISCORE, topScore)
+    fun setTopScore(score: Int) {
+        editor!!.putInt(KEY_HISCORE, score)
+        editor!!.commit()
     }
 
-    fun getTopScore(): String? {
-        return pref!!.getString(HISCORE, "NO TOP SCORE FOUND")
+    fun setTopUser(user: String) {
+        editor!!.putString(KEY_USER, user)
+        editor!!.commit()
+    }
+
+    fun getTopScore(): Int {
+        return pref!!.getInt(KEY_HISCORE, 0)
+    }
+
+    fun getTopUser(): String? {
+        return pref!!.getString(KEY_USER, "NONAME")
     }
 
     fun checkTopScore(totalScore: Int):  Boolean {
-        var currentTopScore  = pref!!.getInt(HISCORE, 0)
+        var currentTopScore= pref!!.getInt(KEY_HISCORE, 0)
 
         return totalScore > currentTopScore
     }

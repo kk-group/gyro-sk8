@@ -140,7 +140,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
             override fun onTick(millisUntilFinished: Long){
                 val timeRemaining = millisUntilFinished / 1000
                 gameplayTimer.text = "timer: $timeRemaining"
-                Log.d("DEBUG", "$timeRemaining")
+                //Log.d("DEBUG", "$timeRemaining")
             }
 
             override fun onFinish() {
@@ -153,12 +153,10 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
                 scoreText.text = String.format("Total score: $totalScore")
 
-                prefManager.setTopScore("TESTMAN", totalScore)
-
                 // here we check if totalscore is the new top score and put it in if it is
                 if (prefManager.checkTopScore(totalScore)) {
-                    prefManager.setTopScore("TESTMAN", totalScore)
-
+                    prefManager.setTopUser("TESTMAN")
+                    prefManager.setTopScore(totalScore)
                 }
             }
         }
