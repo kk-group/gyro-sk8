@@ -29,13 +29,13 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private var gravitySensor: Sensor? = null
 
     // rotation sensor values
-    private var zSensorValue: Float? = null
-    private var zStartValueFromButton: Float? = null
-    private var zRunningFloat: Float? = null
+    private var zRotation: Float? = null
+    private var zRotationStartValue: Float? = null
+    private var zRotationRunning: Float? = null
 
-    private var xSensorValue: Float? = null
-    private var xStartValueFromButton: Float? = null
-    private var xRunningFloat: Float? = null
+    private var xRotation: Float? = null
+    private var xRotationStartValue: Float? = null
+    private var xRotationRunning: Float? = null
 
     // orientation
     private var pitchValue: Float = 0f
@@ -104,26 +104,14 @@ class SandboxFragment : Fragment(), SensorEventListener {
         val btn = view.findViewById(R.id.resetButton) as Button
 
         btn.setOnClickListener {
-            zStartValueFromButton = zSensorValue  // hommataan erotus
-            xStartValueFromButton = xSensorValue
+            zRotationStartValue = zRotation  // hommataan erotus
+            xRotationStartValue = xRotation
 
             rotationCount = 0
-
             ollieCount = 0
             flipCount = 0
 
-            halfFlipCounter.text = String.format("Rotation: $rotationCount")
-            ollieCounter.text = String.format("Ollies: $ollieCount")
-            flipCountText.text = String.format("flips: $flipCount")
-
             timer(20000,1000).start()
-        }
-
-        val stanceBtn = view.findViewById(R.id.stanceButton) as Button
-
-        stanceBtn.setOnClickListener {
-            stance = !stance
-            changeStance()
         }
 
         return view
@@ -141,18 +129,6 @@ class SandboxFragment : Fragment(), SensorEventListener {
     }
 
     /**
-     * function for changing stance (hand)
-     */
-    private fun changeStance() {
-        if (stance) {
-            stancetext.text = String.format("current stance: right")
-        }  else {
-            stancetext.text = String.format("current stance: left")
-        }
-
-    }
-
-    /**
      * Method for gameplay timer
      */
     private fun timer(millisInFuture:Long,countDownInterval:Long): CountDownTimer {
@@ -160,7 +136,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
         return object: CountDownTimer(millisInFuture,countDownInterval){
             override fun onTick(millisUntilFinished: Long){
                 val timeRemaining = millisUntilFinished / 1000
-                gameplayTimer.text = "time left: $timeRemaining sec"
+                gameplayTimer.text = "timer: $timeRemaining"
                 Log.d("DEBUG", "$timeRemaining")
             }
 
@@ -211,9 +187,9 @@ class SandboxFragment : Fragment(), SensorEventListener {
                 flipNum = 3
 
                 if (stance) {
-                    latestFlipName.text = String.format("kickflip")
+                    latestTrickName.text = String.format("Kickflip")
                 } else {
-                    latestFlipName.text = String.format("heelflip")
+                    latestTrickName.text = String.format("Heelflip")
                 }
             }
 
@@ -233,9 +209,9 @@ class SandboxFragment : Fragment(), SensorEventListener {
                 flipNum = 3
 
                 if (stance) {
-                    latestFlipName.text = String.format("heelflip")
+                    latestTrickName.text = String.format("Heelflip")
                 } else {
-                    latestFlipName.text = String.format("kickflip")
+                    latestTrickName.text = String.format("Kickflip")
                 }
             }
         }
@@ -243,36 +219,53 @@ class SandboxFragment : Fragment(), SensorEventListener {
         if (flipNum == 3 && !flipBool) {
             flipBool = true
             flipCount++
-            flipCountText.text = String.format("flips: $flipCount")
         }
 
         if (event?.sensor == rotationSensor && event != null) {
 
             /**
-             * Initializing rotation sensor data X Y Z
+             * Initializing rotation sensor data for X & Z axixes
              */
-            val y = event.values[1]
-            val z = event.values[2]
 
-            zSensorValue = event.values[2] // record z value to "global" variable
-            xSensorValue = event.values[0] // record x value to "global" variable
+            zRotation = event.values[2] // record z value to "global" variable
+            xRotation = event.values[0] // record x value to "global" variable
 
-            if (zRunningFloat !=  null) {
-                zRunningFloat = z - zStartValueFromButton!!
-
+            if (zRotationStartValue !=  null) {
+                zRotationRunning = zRotation!! - zRotationStartValue!!
+                
                 /**
                  * TRICK
-                 * Shuvit functionality
+                 * rotation to the left side
+                 * if stance = true = Pop Shove-it
+                 * if stance = false =  Shove-it
                  */
-
-                if (zRunningFloat!! > 1 || zRunningFloat!! < -1) {
+                if ((zRotationRunning!! > 1 || zRotationRunning!! < -1) && zGyro < -3) {
                     rotationCount++
 
-                    // Calculating rotation from number of shuvits
-                    val rotationCalculation = rotationCount * 180
+                    zRotationStartValue = zRotation
 
-                    halfFlipCounter.text = String.format("Rotation: $rotationCalculation°")
-                    zStartValueFromButton = zSensorValue
+                    if (stance) {
+                        latestTrickName.text = String.format("Pop Shove-it")
+                    } else {
+                        latestTrickName.text = String.format("Shove-it")
+                    }
+                }
+                /**
+                 * TRICK
+                 * rotation to the right side
+                 * if stance = true = Shove-it
+                 * if stance = false =  Pop Shove-it
+                 */
+                else if ((zRotationRunning!! > 1 || zRotationRunning!! < -1) && zGyro > 3) { // right side rotation
+                    rotationCount++
+
+                    zRotationStartValue = zRotation
+
+                    if (stance) {
+                        latestTrickName.text = String.format("Shove-it")
+                    } else {
+                        latestTrickName.text = String.format("Pop Shove-it")
+                    }
                 }
             }
         }
@@ -290,7 +283,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
             if (zAccelero > -1 && zAccelero < 1 && !throwBool && !flipBool && (yGyro < 3 && yGyro > -3)) {
                 throwBool = true
                 ollieCount++
-                ollieCounter.text = String.format("Ollies: $ollieCount")
+                latestTrickName.text = String.format("Ollie")
             } else if (zAccelero > 8.5) {
                 throwBool = false
             }
