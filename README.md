@@ -1,12 +1,8 @@
 # Gyro Sk8
 A skateboarding game for android where you are you the skater, **your phone is the skateboard**. Do tricks by throwing stuff in the air and catching the phone.
 
----
-
 ## About
 This project was made for Metropolia University of Applied Sciences Android Sensor project course using [Android Studio](https://developer.android.com/studio/ "Android Studio") and [Kotlin](https://kotlinlang.org/ "Kotlin") language. Installing requires Android API level 21 or higher (Android 5.0 Lollipop).
-
----
 
 ## Installation
 Clone or Download as .zip from GitHub and open as a project in [Android Studio](https://developer.android.com/studio/ "Android Studio"), build on your phone.
@@ -14,8 +10,6 @@ Clone or Download as .zip from GitHub and open as a project in [Android Studio](
 _or_
 
 Download .apk file on your Android phone using [this link](https://drive.google.com/open?id=1Vmd1SVvtFxtgMf26j3LWX8RXSjaeblIK) and install the file.
-
----
 
 ## Progress
  
@@ -27,8 +21,6 @@ Plan for the first week:
 * research similiar apps for trying to get more data on how to implement trick recognization.
 * rough ideas of layout/navigation of the app
 
----
-
 *Week 1 results*  
 
 * much sensor data
@@ -36,8 +28,6 @@ Plan for the first week:
 * logic for phone rotation
 * test fragment done
 * trying to make sense of sensor data
-
----  
 
 *Week 2 schedule*  
 
@@ -49,8 +39,6 @@ For our second week we planned:
 * choosing stance
 * point system
 
----  
-
 *Week 2 results*  
 
 * detect plane -> start position for tricks
@@ -60,8 +48,6 @@ For our second week we planned:
 * point system and leaderboards
 * UX/UI revision
 * Documentation
-
----
 
 ## Screenshots
 
