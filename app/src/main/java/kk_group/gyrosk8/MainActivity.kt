@@ -13,21 +13,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnShowSlider.setOnClickListener {
-            PrefManager(applicationContext).setLaunched(true)
-            startActivity(Intent(this, IntroActivity::class.java))
-            finish()
-        }
-
         btnSkate.setOnClickListener {
-//            supportFragmentManager.beginTransaction().add(R.id.root_layout, SandboxFragment()).commit()
             startActivity(Intent(this, SkateActivity::class.java))
-//            btnShowSlider.visibility = View.GONE
-//            btnSkate.visibility = View.GONE
         }
 
         btnHiScores.setOnClickListener{
             startActivity(Intent(this, HiScoreActivity::class.java))
+        }
+
+        btnSettings.setOnClickListener{
+            startActivity(Intent(this, AboutUsActivity::class.java))
+        }
+
+        btnShowSlider.setOnClickListener {
+            PrefManager(applicationContext).setLaunched(true)
+            startActivity(Intent(this, IntroActivity::class.java))
+            finish()
         }
 
     }

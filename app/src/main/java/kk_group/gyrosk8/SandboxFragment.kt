@@ -1,5 +1,6 @@
 package kk_group.gyrosk8
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
@@ -117,6 +118,8 @@ class SandboxFragment : Fragment(), SensorEventListener {
             flipCount = 0
 
             timer(20000,1000).start()
+
+            btn.visibility = View.INVISIBLE
         }
 
         return view
@@ -165,6 +168,7 @@ class SandboxFragment : Fragment(), SensorEventListener {
     private fun timer(millisInFuture:Long,countDownInterval:Long): CountDownTimer {
 
         return object: CountDownTimer(millisInFuture,countDownInterval){
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long){
                 val timeRemaining = millisUntilFinished / 1000
                 gameplayTimer.text = "timer: $timeRemaining"
@@ -173,13 +177,15 @@ class SandboxFragment : Fragment(), SensorEventListener {
 
             override fun onFinish() {
                 Log.d("DEBUG", "FINISHED COUNTDOWN")
-                var ollieScore = olliePoint * ollieCount
-                var flipScore = flipPoint * flipCount
-                var rotationScore = rotationPoint * rotationCount
+                val ollieScore = olliePoint * ollieCount
+                val flipScore = flipPoint * flipCount
+                val rotationScore = rotationPoint * rotationCount
 
                 totalScore = ollieScore + flipScore + rotationScore
 
                 scoreText.text = String.format("Total score: $totalScore")
+                val btn = view?.findViewById(R.id.resetButton) as Button
+                btn.visibility = View.VISIBLE
 
                 // here we check if totalscore is the new top score and put it in if it is
                 if (prefManager.checkTopScore(totalScore)) {
@@ -199,14 +205,13 @@ class SandboxFragment : Fragment(), SensorEventListener {
          *  also resets flipNumber and sets boolean to false to tell the program that phone is on somewhat flat surface and not in mid-flip
          */
         if (checkFlat()) {
-            relativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF")) // green
-
+            relativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF")) // before thiw was green background color
             iv_greentick.setBackgroundResource(R.drawable.greentick)
 
             flipNum = 0
             flipBool = false
         } else {
-            relativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF")) // red
+            relativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF")) // and this was red colour for debug purposes
             iv_greentick.setBackgroundResource(R.drawable.redcross)
         }
 

@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">GyroSK8</string>
 
-    <string name="slide_1_title">Gyro Sk8!</string>
+    <string name="slide_1_title">Welcome to Gyro Sk8!</string>
     <string name="slide_2_title">How do I play?</string>
-    <string name="slide_3_title">Let me skate!</string>
+    <string name="slide_3_title">Alright, let me skate!</string>
 
     <string name="slide_1_desc">A skateboarding game for android where your phone is the skateboard, and you\'re the skater. Do tricks by throwing stuff in the air and catching the phone. Skate or die!</string>
     <string name="slide_2_desc">Choose your stance. Regular for left hand and Goofy for right hand. Remember to use one hand only. Get as many points as you can but no cheating!</string>
@@ -34,5 +34,6 @@
     <string name="score">Score</string>
     <string name="checkbox_if_stable">checkbox_if_stable</string>
     <string name="start2">Start</string>
+    <string name="about_us_text">This application was made as a project for Metropolia UAS Android Sensor course using Android Studio and Kotlin language. It was made by Robert Laitila and Ilkka Miettinen.</string>
 
 </resources>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GyroSK8</string>
-    <string name="slide_2_title">Miten pelaan?</string>
+    <string name="slide_2_title">Miten pelata?</string>
     <string name="slide_3_title">Päästä minut sisään!</string>
-    <string name="slide_1_title">Gyro Sk8!</string>
+    <string name="slide_1_title">Tervetuloa GyroSK8in mukaan!</string>
     <string name="slide_1_desc">Skeittipeli, jossa puhelimesi on skeittilauta, ja sinä olet skeittaaja. Tee temppuja heittämällä puhelimesi ilmaan ja ottamalla se kiinni!</string>
-    <string name="slide_2_desc">Valitse puolesi. Regular vasenkätisille ja Goofy oikeankätisille! Muista, käytä vain yhtä kättä. Ei huijaamista!</string>
+    <string name="slide_2_desc">Valitse puolesi. Regular vasenkätisille ja Goofy oikeankätisille! Muista, pidä puhelin tasaisena ja käytä vain yhtä kättä. Ei huijaamista!</string>
     <string name="slide_3_desc">Painamalla valmis ymmärrän ja pelaan vain omalla vastuullani. Gyro-Sk8 ei vastaa millään tavoin pelin pelaamisesta mahdollisesti aiheutuneita vammoja tai henkilövahinkoja.</string>
     <string name="next">Seuraava</string>
     <string name="skip">Skippaa</string>
@@ -23,7 +23,7 @@
     <string name="highscore">Ennätys</string>
     <string name="hall_of_fame">hall of fame</string>
     <string name="alt_logo">Gyro Sk8</string>
-    <string name="about_us">Tietoa meistä</string>
+    <string name="about_us">About us</string>
     <string name="hi_scores">Ennätykset</string>
     <string name="skate">Skeittaa</string>
     <string name="show_tutorial_again">Näytä ohje uudelleen</string>
@@ -32,5 +32,6 @@
     <string name="score">Pisteet</string>
     <string name="checkbox_if_stable">checkbox_jos_vakaa</string>
     <string name="start2">Aloita</string>
+    <string name="about_us_text">Tämä applikaatio tehtiin projektina Metropolia Ammattikorkeakoulun Android Sensorikurssille käyttäen Android Studiota ja Kotlin-kieltä. Sen tekivät Robert Laitila ja Ilkka Miettinen.</string>
 
 </resources>
