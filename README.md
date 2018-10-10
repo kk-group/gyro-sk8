@@ -6,7 +6,19 @@ A skateboarding game for android where you are you the skater, **your phone is t
 ## About
 This project was made for Metropolia University of Applied Sciences Android Sensor project course using [Android Studio](https://developer.android.com/studio/ "Android Studio") and [Kotlin](https://kotlinlang.org/ "Kotlin") language. Installing requires Android API level 21 or higher (Android 5.0 Lollipop).
 
---- 
+---
+
+## Installation
+Clone or Download as .zip from GitHub and open as a project in [Android Studio](https://developer.android.com/studio/ "Android Studio"), build on your phone.
+
+_or_
+
+Download .apk file on your Android phone using [this link](https://drive.google.com/open?id=1Vmd1SVvtFxtgMf26j3LWX8RXSjaeblIK) and install the file.
+
+---
+
+## Progress
+ 
 *Week 1 schedule*  
 
 Plan for the first week:  
@@ -47,9 +59,18 @@ For our second week we planned:
 * localization of strings.xml
 * point system and leaderboards
 * UX/UI revision
+* Documentation
 
 ---
 
-*Authors*
-* Robert Laitila
-* Ilkka Miettinen
+## Screenshots
+
+| Menu     | Stance   | Play     |
+| :-------------: | :-------------: | :-------------: |
+| ![Menu](https://i.imgur.com/1A4fo54.png) | ![Play](https://i.imgur.com/hRo5ylD.png) | ![Leaderboard](https://i.imgur.com/G71C1IL.png) |
+
+---
+
+## Authors
+* Robert Laitila - goebers
+* Ilkka Miettinen - taakib
