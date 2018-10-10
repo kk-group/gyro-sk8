@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GyroSK8</string>
+    <string name="slide_2_title">Miten pelaan?</string>
+    <string name="slide_3_title">Päästä minut sisään!</string>
+    <string name="slide_1_title">Gyro Sk8!</string>
+    <string name="slide_1_desc">Skeittipeli, jossa puhelimesi on skeittilauta, ja sinä olet skeittaaja. Tee temppuja heittämällä puhelimesi ilmaan ja ottamalla se kiinni!</string>
+    <string name="slide_2_desc">Valitse puolesi. Regular vasenkätisille ja Goofy oikeankätisille! Muista, käytä vain yhtä kättä. Ei huijaamista!</string>
+    <string name="slide_3_desc">Painamalla valmis ymmärrän ja pelaan vain omalla vastuullani. Gyro-Sk8 ei vastaa millään tavoin pelin pelaamisesta mahdollisesti aiheutuneita vammoja tai henkilövahinkoja.</string>
+    <string name="next">Seuraava</string>
+    <string name="skip">Skippaa</string>
+    <string name="start">Valmis</string>
+    <string name="logo">GyroSk8</string>
+    <string name="regular">Regular</string>
+    <string name="goofy">Goofy</string>
+    <string name="choose_your_stance">Valitse puolesi</string>
+    <string name="alertDialogTitle">Uusi ennätys!</string>
+    <string name="pointsTxt">pistettä!</string>
+    <string name="alertOkBtn">Tallenna</string>
+    <string name="get_hiscores">Hae ennätykset</string>
+    <string name="alertDialogMsg">"Sinä teit sen! Rikoit ennätyksen! Anna nimikirjaimesi niin tallennamme pistemäärän. Sait"</string>
+    <string name="choose_stance">valitse_puoli</string>
+    <string name="highscore">Ennätys</string>
+    <string name="hall_of_fame">hall of fame</string>
+    <string name="alt_logo">Gyro Sk8</string>
+    <string name="about_us">Tietoa meistä</string>
+    <string name="hi_scores">Ennätykset</string>
+    <string name="skate">Skeittaa</string>
+    <string name="show_tutorial_again">Näytä ohje uudelleen</string>
+    <string name="latest_trick">Viimeisin temppu</string>
+    <string name="timer">Aika</string>
+    <string name="score">Pisteet</string>
+    <string name="checkbox_if_stable">checkbox_jos_vakaa</string>
+    <string name="start2">Aloita</string>
+
+</resources>

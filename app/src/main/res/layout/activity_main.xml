@@ -14,8 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
-        android:src="@drawable/skateboardbg"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/skateboardbg" />
 
     <TextView
         android:id="@+id/tvLogo"
@@ -46,7 +46,7 @@
         android:layout_marginEnd="74dp"
         android:layout_marginStart="74dp"
         android:background="@drawable/btn_background"
-        android:text="About us"
+        android:text="@string/about_us"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnShowSlider"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
         android:layout_marginEnd="74dp"
         android:layout_marginStart="74dp"
         android:background="@drawable/btn_background"
-        android:text="Hi-Scores"
+        android:text="@string/hi_scores"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnSettings"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +83,7 @@
         android:layout_marginStart="74dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/btn_background"
-        android:text="Skate"
+        android:text="@string/skate"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnHiScores"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,7 +103,7 @@
         android:layout_marginStart="74dp"
         android:layout_marginTop="3dp"
         android:background="@drawable/btn_background"
-        android:text="Show Tutorial Again"
+        android:text="@string/show_tutorial_again"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

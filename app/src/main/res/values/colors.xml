@@ -2,11 +2,11 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
 
     <!-- Custom colours -->
     <color name="colorDark">#262938</color>
-    <color name="colorDark2">#181A24</color>
+    <color name="colorDark2">#181a24</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorTransparentWhite">#cccccc</color>
 
@@ -18,9 +18,9 @@
 
     <!-- Screens background color-->
     <color name="bg_screen1">#48C9B0</color>
-    <color name="bg_screen2">#A569BD</color>
+    <color name="bg_screen2">#a569bd</color>
     <color name="bg_screen3">#DC7633</color>
-    <color name="bg_screen4">#F5B041</color>
+    <color name="bg_screen4">#f5b041</color>
 
     <array name="array_dot_inactive">
         <item>@color/dot_dark_screen1</item>

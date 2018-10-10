@@ -16,10 +16,23 @@
     <string name="regular">Regular</string>
     <string name="goofy">Goofy</string>
     <string name="choose_your_stance">Choose Your Stance</string>
-
     <string name="alertDialogTitle">NEW HISCORE</string>
     <string name="alertDialogMsg">YOU DID IT BRO! YOU BEAT THE CURRENT TOP SCORE AND ARE INVITED TO THE SKATING HALL OF FAME! JUST GIVE YOUR SK8 NAME! YOU GOT</string>
     <string name="pointsTxt">POINTS!</string>
     <string name="alertOkBtn">HELL YEA BROSKI</string>
+    <string name="get_hiscores">Get hiscores</string>
+    <string name="highscore">HIGHSCORE</string>
+    <string name="hall_of_fame">hall of fame</string>
+    <string name="alt_logo">Gyro Sk8</string>
+    <string name="choose_stance">choose_stance</string>
+    <string name="about_us">About us</string>
+    <string name="hi_scores">Hi-Scores</string>
+    <string name="skate">Skate</string>
+    <string name="show_tutorial_again">Show Tutorial Again</string>
+    <string name="latest_trick">Latest trick</string>
+    <string name="timer">Timer</string>
+    <string name="score">Score</string>
+    <string name="checkbox_if_stable">checkbox_if_stable</string>
+    <string name="start2">Start</string>
 
 </resources>

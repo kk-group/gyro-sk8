@@ -12,13 +12,30 @@
         android:id="@+id/ivBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@null"
-        android:cropToPadding="false"
-        android:scaleType="centerCrop"
-        android:src="@drawable/skateboardbg2"
+        android:contentDescription="@string/choose_stance"
+        android:scaleType="center"
+        android:src="@mipmap/skateboardbg4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_choose_stance"
+        android:layout_width="291dp"
+        android:layout_height="111dp"
+        android:layout_marginBottom="400dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/brown_fox"
+        android:gravity="center"
+        android:text="@string/choose_your_stance"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +49,7 @@
         android:background="@drawable/btn_background"
         android:text="@string/regular"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnRight"
         app:layout_constraintHorizontal_bias="0.421"
@@ -47,29 +64,10 @@
         android:background="@drawable/btn_background"
         android:text="@string/goofy"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnLeft" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="291dp"
-        android:layout_height="111dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="44dp"
-        android:fontFamily="@font/brown_fox"
-        android:gravity="center"
-        android:text="@string/choose_your_stance"
-        android:textColor="@color/colorDark"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -78,7 +76,7 @@
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_choose_stance"
         app:srcCompat="@drawable/lefthand"
         android:contentDescription="@null" />
 
@@ -91,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/ivBackground"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_choose_stance"
         android:contentDescription="@null"
         app:srcCompat="@drawable/righthand" />
 

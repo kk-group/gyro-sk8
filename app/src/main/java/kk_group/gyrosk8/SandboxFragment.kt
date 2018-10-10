@@ -199,11 +199,15 @@ class SandboxFragment : Fragment(), SensorEventListener {
          *  also resets flipNumber and sets boolean to false to tell the program that phone is on somewhat flat surface and not in mid-flip
          */
         if (checkFlat()) {
-            relativeLayout.setBackgroundColor(Color.parseColor("#33FF41")) // green
+            relativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF")) // green
+
+            iv_greentick.setBackgroundResource(R.drawable.greentick)
+
             flipNum = 0
             flipBool = false
         } else {
-            relativeLayout.setBackgroundColor(Color.parseColor("#FF5733")) // red
+            relativeLayout.setBackgroundColor(Color.parseColor("#FFFFFF")) // red
+            iv_greentick.setBackgroundResource(R.drawable.redcross)
         }
 
         if (event?.sensor == gravitySensor && event != null) {
